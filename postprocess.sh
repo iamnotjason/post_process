@@ -23,7 +23,7 @@ postprocess ()
         password=$(grep DB_PASSWORD wp-config.php | cut -d"'" -f4);
         user=$(grep DB_USER wp-config.php | cut -d"'" -f4);
         prefix=$(grep -i table_prefix wp-config.php |awk -F"'" '{print $2}');
-        if [[ $(grep -E "define\(\ ?'MULTISITE', true\ ?\);" wp-config.php | grep -o true) == true ]]; then
+        if [[ -n $(grep -E "define\(\ ?'MULTISITE', true\ ?\);" wp-config.php) ]]; then
             otable='sitemeta';
             table='meta_value';
             row='meta_key';
@@ -42,4 +42,3 @@ postprocess ()
         echo -e "\n\n${space}\n  No ${red}install${NC} found/name provided was invalid.\n${space}\n\n";
     fi
 }
-
