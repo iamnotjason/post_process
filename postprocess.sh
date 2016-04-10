@@ -1,4 +1,4 @@
-postprocess () 
+postprocess ()
 { 
     red='\x1b[0;31m';
     yellow='\x1b[0;33m';
@@ -8,14 +8,10 @@ postprocess ()
     purple='\x1b[0;35m';
     NC='\x1b[0m';
     space='-------------------------------';
-    if [[ $# != 1 ]]; then
-        echo -e "\n\nPlease provide the install name you would like to view the post-processing rules for: \n";
-        read install;
-    else
-        install=$1;
-    fi;
-    if [[ $1 = -this ]]; then
-        install=$(pwd | cut -d'/' -f5);
+   if [[ -z $1 ]]; then
+    install=$(pwd | cut -d'/' -f5);
+        else
+        install=$1; 
     fi;
     if [[ -f /nas/content/live/$install/wp-config.php ]]; then
         wpe $install;
@@ -42,3 +38,4 @@ postprocess ()
         echo -e "\n\n${space}\n  No ${red}install${NC} found/name provided was invalid.\n${space}\n\n";
     fi
 }
+
